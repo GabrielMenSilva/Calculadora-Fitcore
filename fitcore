@@ -8,26 +8,40 @@ caloria_total = 0
 meta = 0
 tempo_treino = 0
 objetivo = 0
+calorias = 0
+tempo = 0
 
-if iniciar == 'S':
-    sexo = str(input("Qual seu sexo biologico: [M/F]")).upper()
-    idade = int(input("Qual a sua idade: "))
-    peso = float(input('informe seu peso: '))
-    altura = float(input('Agora informe a sua altura (exemplo: 1.75): '))
-
-    while True:
+while iniciar == 'S':
+    dados = 'N'
+    while dados == 'N':
+        sexo = str(input("Qual seu sexo biologico: [M/F]")).upper()
+        if sexo != 'M' and sexo != 'F':
+            sexo = str(input("Algo deu errado, Digite novamente: [M/F]")).upper()
+        idade = int(input("Qual a sua idade: "))
+        if idade < 0 or idade > 100:
+            idade = int(input("Algo deu errado, Digite novamente: "))
+        peso = float(input('informe seu peso: '))
+        if peso < 0 or peso > 300:
+            peso = float(input("Algo deu errado, Digite novamente: "))
+        altura = float(input('Agora informe a sua altura (exemplo: 1.75): '))
+        if altura < 0 or altura > 3:
+            altura = float(input("Algo deu errado, Digite novamente: "))
+        print(f"Dados = sexo {sexo}, idade {idade}, peso {peso} e altura {altura}")
+        dados = str(input("Os Dados estao correto: [S/N]")).upper()
+    encerrar = 'N'
+    while encerrar == 'N':
         opcao = int(input('''Nosso programa tem varias funções, escolha qual você gostaria de calcular
-    [1] IMC
-    [2] Hidratação Diária
-    [3] Gasto Calórico
-    [4] Meta Diária
-    [5] Resumo diário
-    [6] Encerrar programa
-    Função escolhida: '''))
+[1] IMC
+[2] Hidratação Diária
+[3] Gasto Calórico
+[4] Meta Diária
+[5] Resumo diário
+[6] Encerrar programa
+Função escolhida: '''))
 
         if opcao == 1:
             # calculo do imc
-            imc = peso / (altura*altura)
+            imc = peso / (altura * altura)
             print(f"\nO seu imc é {imc:.2f}")
             if imc < 18.5:
                 print('Você está abaixo do peso \n')
@@ -59,30 +73,34 @@ if iniciar == 'S':
 [4] Bicicleta
 [5] Voltar ao menu principal                                                            
 Opção: '''))
+
                 if atividade >= 1 and atividade <= 4:
                     tempo = int(
                         input('Quantas minutos você ira praticar essa atividade? '))
                     if atividade == 1:
-                        calorias = 3.5 * peso * (tempo/60)
+                        calorias = 3.5 * peso * (tempo / 60)
                         print(f"você gasta o Total de {calorias} calorias")
                     elif atividade == 2:
-                        calorias = 8 * peso * (tempo/60)
+                        calorias = 8 * peso * (tempo / 60)
                         print(f"você gasta o Total de {calorias} calorias")
                     elif atividade == 3:
-                        calorias = 7 * peso * (tempo/60)
+                        calorias = 7 * peso * (tempo / 60)
                         print(f"você gasta o Total de {calorias} calorias")
                     elif atividade == 4:
-                        calorias = 7 * peso * (tempo/60)
+                        calorias = 7 * peso * (tempo / 60)
                         print(f"você gasta o Total de {calorias} calorias")
                     exercicio += 1
+
                 elif atividade == 5:
-                    break
+                    continuar = "N"
                 else:
                     print("Essa opção não existe, Digite outra opção:")
+
                 continuar = str(
                     input('Gostaria de adicionar mais uma atividade? [S/N]')).upper()
-                if continuar == 's':
+                if continuar == 'S':
                     print('Voltando ao menu de exercicios...')
+
                 caloria_total = caloria_total + calorias
                 print(f"Total de caloria foi {caloria_total}")
 
@@ -90,17 +108,19 @@ Opção: '''))
 
         elif opcao == 4:
             if sexo == "M":
-                tmb = (10*peso)+(6.25*(altura*100))-(5*idade)+5
+                tmb = (10 * peso) + (6.25 * (altura * 100)) - (5 * idade) + 5
                 print(f"Essa é a sua taxa metabólica basal: {tmb}")
             elif sexo == "F":
-                tmb = (10*peso)+(6.25*(altura*100))-(5*idade)-161
+                tmb = (10 * peso) + (6.25 * (altura * 100)) - (5 * idade) - 161
                 print(f"Essa é a sua taxa metabólica basal: {tmb}")
+
             nivel_atividade = int(input('''Qual nivel de atividade você ira fazer:
 [1] Sedentário
 [2] Levemente ativo
 [3] Moderado
 [4] Muito ativo
 Opção escolhida:'''))
+
             if nivel_atividade == 1:
                 tdee = tmb * 1.2
             elif nivel_atividade == 2:
@@ -115,14 +135,16 @@ Opção escolhida:'''))
 [2] Manter
 [3] Ganhar massa
 Objetivo: '''))
+
             if objetivo == 1:
                 exercicio = int(input('''Qual atividade você quer praticar: 
 [1] Caminhada
 [2] Corrida
 [3] Musculação
 Opção escolhida:'''))
+
                 if objetivo == 1:  # emagrecer
-                    calorias_objetivo = 300  # déficit via exercício
+                    calorias_objetivo = 300
                     if exercicio == 1:
                         tempo_exercicio = calorias_objetivo / 5
                     elif exercicio == 2:
@@ -130,7 +152,7 @@ Opção escolhida:'''))
                     elif exercicio == 3:
                         tempo_exercicio = calorias_objetivo / 6
 
-                elif objetivo == 2:  # manter
+                elif objetivo == 2:
                     calorias_objetivo = 200
                     if exercicio == 1:
                         tempo_exercicio = calorias_objetivo / 5
@@ -139,22 +161,22 @@ Opção escolhida:'''))
                     elif exercicio == 3:
                         tempo_exercicio = calorias_objetivo / 6
 
-                elif objetivo == 3:  # ganhar massa
+                elif objetivo == 3:
                     if exercicio == 3:
                         tempo_exercicio = 60
                     else:
                         tempo_exercicio = 20
 
-            meta = int(
-                input('Quantas horas diárias você quer colocar como meta? '))
+            meta = int(input('Quantas horas diárias você quer colocar como meta? '))
             tempo_feito = int(input("Quanto tempo você treinou hoje?"))
             tempo_treino = tempo + tempo_feito
+
             if meta <= tempo_feito:
                 print(
                     f"Parabéns você concluiu sua meta diária de {meta} horas fazendo {tempo_feito} horas ")
             else:
                 print(
-                    f"Infelizmente hoje você não cumpriu sua meta de {meta} horas, faltou {meta-tempo_feito} horas")
+                    f"Infelizmente hoje você não cumpriu sua meta de {meta} horas, faltou {meta - tempo_feito} horas")
 
         elif opcao == 5:
             print(f'''Vamos para seu resumo diário
@@ -164,14 +186,12 @@ Total de exercicios feitos: {exercicio}
 Total de calorias gastas: {caloria_total}
 Meta: {meta} 
 tempo de treino feito: {tempo_treino}
-Objetivo: {objetivo}
-''')
-            iniciar = str(
-                input("Gostaria de refazer os testes: [S/N]")).upper()
+Objetivo: {objetivo}''')
+
+            iniciar = str(input("Gostaria de refazer os testes: [S/N]")).upper()
 
         elif opcao == 6:
-            print("Programa encerrando, até a próxima...")
-            break
+            encerrar = str(input("Tem certeza que quer encerrar? [S/N]: ")).upper()
 
 else:
     print("Programa encerrando, até a próxima...")
